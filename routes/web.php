@@ -11,6 +11,8 @@
 */
 
 Route::get('/', 'front\\frontController@index');
+Route::get('redirect/{driver}', 'Auth\LoginController@redirectToProvider')->name('login.provider');
+Route::get('{driver}/callback', 'Auth\LoginController@handleProviderCallback')->name('login.callback');
 
 // ========== middle =====
     
@@ -60,3 +62,15 @@ Route::group(['middleware' => 'App\Http\Middleware\AdminMiddleware'], function (
 });
 
 
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

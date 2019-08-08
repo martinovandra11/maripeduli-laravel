@@ -1,131 +1,77 @@
-@extends('layouts.front-layouts')
-
-@section('title')
-    Register
-@endsection
-
-@section('style')
-<link href="back-assets/dist/css/style.min.css" rel="stylesheet">   
-<style>
-        .head-title h5{
-            font-weight: bold;
-            font-size: 16px; 
-        }
-        .main-wrapper{
-            margin-top: -150px;
-        }
-        .nav-bar{
-            display: none;
-        }
-        
-        .auth-box{
-            border-radius: 10px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.30) !important;
-        }
-        
-        </style>    
-@endsection
+@extends('layouts.app')
 
 @section('content')
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">{{ __('Register') }}</div>
 
-<div class="main-wrapper">
-        <div class="auth-wrapper d-flex no-block justify-content-center align-items-center" >
-            <div class="auth-box">
-                <div>
-                    <div class="head-title">
-                        <h5 class="font-medium mb-3">Daftar</h5>
-                    </div>
-                    <form action="{{route('register')}}" method="post">
+                <div class="card-body">
+                    <form method="POST" action="{{ route('register') }}">
                         @csrf
-                    <div class="row">
-                        <div class="col-12">
-                            <form class="form-horizontal mt-3" action="index.html">
-                                <div class="form-group row ">
-                                    <div class="col-12 ">
-                                        <input class="form-control-lg form-control {{ $errors->has('name') ? ' is-invalid' : '' }}" value="{{old('name')}}" name="name" type="text" required autofocus placeholder="Name">
-                                        @if ($errors->has('name'))
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>Mohon Masukan Nama yang Valid</strong>
-                                        </span>
-                                        @endif
-                                    </div>
-                                </div>
-                                <div class="form-group row ">
-                                    <div class="col-12">
-                                        <input class="form-control-lg form-control {{ $errors->has('no_hp') ? ' is-invalid' : '' }}" name="no_hp" value="{{ old('no_hp') }}" type="number" required placeholder="Nomor Handphone">
-                                        @if ($errors->has('no_hp'))
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>Mohon Masukan Nomor Handphone yang Valid</strong>
-                                        </span>
-                                        @endif
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <div class="col-12 ">
-                                        <input class="form-control-lg form-control {{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" type="email" required=" " placeholder="Email">
-                                        @if ($errors->has('email'))
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>Email ini Sudah Terdaftar</strong>
-                                            </span>
-                                        @endif
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <div class="col-12 ">
-                                        <input class="form-control-lg form-control {{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" type="password" required=" " placeholder="Password">
-                                        @if ($errors->has('password'))
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>Password Tidak Boleh Kurang Dari 8 Karakter</strong>
-                                        </span>
-                                        @endif
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <div class="col-12 ">
-                                        <input class="form-control-lg form-control" type="password" name="password_confirmation" required=" " placeholder="Confirm Password">
-                                    </div>
-                                </div>
-                                <div class="form-group text-center ">
-                                    <div class="col-xs-12 pb-3 ">
-                                        <button class="btn btn-block btn-lg btn-info " type="submit ">Daftar</button>
-                                    </div>
-                                </div>
-                                <div class="form-group mb-0 mt-2 ">
-                                    <div class="col-sm-12 text-center ">
-                                        Sudah Punya Akun? <a href="/login" class="text-info ml-1 "><b>LogIn</b></a>
-                                    </div>
-                                </div>
-                            </form>
+
+                        <div class="form-group row">
+                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+
+                                @error('name')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
                         </div>
-                    </div>
-                    
-                </form>
+
+                        <div class="form-group row">
+                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
+
+                                @error('email')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+
+                                @error('password')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                            </div>
+                        </div>
+
+                        <div class="form-group row mb-0">
+                            <div class="col-md-6 offset-md-4">
+                                <button type="submit" class="btn btn-primary">
+                                    {{ __('Register') }}
+                                </button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
-        <!-- ============================================================== -->
-        <!-- Login box.scss -->
-        <!-- ============================================================== -->
-        <!-- ============================================================== -->
-        <!-- Page wrapper scss in scafholding.scss -->
-        <!-- ============================================================== -->
-        <!-- ============================================================== -->
-        <!-- Page wrapper scss in scafholding.scss -->
-        <!-- ============================================================== -->
-        <!-- ============================================================== -->
-        <!-- Right Sidebar -->
-        <!-- ============================================================== -->
-        <!-- ============================================================== -->
-        <!-- Right Sidebar -->
-        <!-- ============================================================== -->
     </div>
-    <!-- ============================================================== -->
-    <!-- This page plugin js -->
-    <!-- ============================================================== -->
-    <script>
-    $('[data-toggle="tooltip "]').tooltip();
-    $(".preloader ").fadeOut();
-    </script>
-
-
+</div>
 @endsection
